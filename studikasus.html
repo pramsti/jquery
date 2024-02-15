@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Sederhana</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h2>Form Sederhana</h2>
+    <form id="format">
+      <div>
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" />
+      </div>
+      <div>
+        <label for="jurusan">jurusan:</label>
+        <input type="jurusan" id="jurusan" name="jurusan" />
+      </div>
+      <div>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+          <option value="pria">Pria</option>
+          <option value="perempuan">Perempuan</option>
+        </select>
+      </div>
+      <div>
+        <input type="checkbox" id="siswa" name="siswa" />
+        <label for="siswa">Siswa</label>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+      $(document).ready(function () {
+        $("#format").submit(function (e) {
+          e.preventDefault();
+
+          var formData = $(this).serializeArray();
+          var result = "";
+          var isFormValid = true;
+
+          $.each(formData, function (index, field) {
+            if (!field.value) {
+              isFormValid = false;
+              return false; // keluar dari loop jika ada field yang kosong
+            }
+
+            result += "<p>" + field.name + ": " + field.value + "</p>";
+          });
+
+          if (!isFormValid) {
+            alert("Form belum diisi!");
+            return; // keluar dari submit function
+          }
+
+          $("#result").html(result);
+        });
+      });
+    </script>
+  </body>
+</html>
